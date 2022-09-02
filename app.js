@@ -1,5 +1,7 @@
 import express from 'express';
 import path from 'path';
+import * as dotenv from "dotenv";
+dotenv.config();
 
 import __dirname  from './dirname.js';
 import cookieParser  from 'cookie-parser';

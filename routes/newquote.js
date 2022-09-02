@@ -1,4 +1,8 @@
 import express from "express";
+import crypto from "crypto";
+import fetch from "node-fetch";
+
+
 const router = express.Router();
 
 const basePrice = 120;
@@ -8,6 +12,8 @@ const higherPriceAddress = ["London", "Birmingham", "Manchester"];
 /* POST new quote. */
 router.post("/", function (req, res, next) {
   // location
+
+
 
   // if age <=5 add 5%, age <= 10 add 10%
   let totalPrice = basePrice;
@@ -28,6 +34,7 @@ router.post("/", function (req, res, next) {
   if (higherPriceAddress.includes(location)) {
     totalPrice += totalPrice * 0.15;
   }
+  const refNumber = crypto.randomUUID();
 
   res.json({ price: totalPrice });
 });

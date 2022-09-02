@@ -1,0 +1,23 @@
+{
+  "name": "manypetsapi",
+  "version": "1.0.0",
+  "description": "Express generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lauro235/manyPetsAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lauro235/manyPetsAPI/issues"
+  },
+  "homepage": "https://github.com/Lauro235/manyPetsAPI#readme",
+  "dependencies": {
+    "express-generator-esmodules": "^4.16.7"
+  }
+}

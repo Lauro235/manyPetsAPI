@@ -1,7 +1,7 @@
 import express from "express";
 import crypto from "crypto";
 import fetch from "node-fetch";
-
+import asyncHandler from "express-async-handler";
 
 const router = express.Router();
 
@@ -10,9 +10,28 @@ const lowerPriceBreeds = ["Beagle", "Husky", "German Shepherd"];
 const higherPriceAddress = ["London", "Birmingham", "Manchester"];
 
 /* POST new quote. */
-router.post("/", function (req, res, next) {
+router.post("/", asyncHandler(async function (req, res, next) {
+  
   // location
-
+  const API_KEY = process.env.API_KEY;
+  const response = await fetch(
+    `https://ws.postcoder.com/pcw/${API_KEY}/address/uk/${req.body.postcode}`
+  );
+  if (response.status === 400) {
+    res.status(response.status).json({ Message: "Postcode does not exist" });
+  } else {
+    const data = await response.json();
+  
+    if (!data.some((element) => element.number.toLowerCase() === req.body.houseNumber.toLowerCase())) {
+      res.status(response.status).json({ Message: "House number is incorrect" });
+    } 
+    if (!data.some((element) => element.street.toLowerCase() === req.body.streetName.toLowerCase())) {
+      res.status(response.status).json({ Message: "Street name is incorrect" });
+    } 
+    if (!data.some((element) => element.posttown.toLowerCase() === req.body.city.toLowerCase())) {
+      res.status(response.status).json({ Message: "City is incorrect" });
+    } 
+}
 
 
   // if age <=5 add 5%, age <= 10 add 10%
@@ -37,7 +56,7 @@ router.post("/", function (req, res, next) {
   const refNumber = crypto.randomUUID();
 
   res.json({ price: totalPrice });
-});
+}));
 
 export default router;
 
